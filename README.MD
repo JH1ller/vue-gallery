@@ -1,4 +1,4 @@
-## Baufritz Proof of Concept
+## Hiller Family Website
 
 ### Technologies
 - Vuejs
@@ -6,9 +6,6 @@
 - Vue Class Components (& Property Decorator)
 - Typescript
 - SCSS
-
-### Developers
-- Justin Hiller (Junior Web Engineer)
 
 ### Build
 
@@ -24,4 +21,4 @@
 
 #### Production
 
-- `VUE_APP_SERVER_PATH="URL" npm run build`
+- `npm run build`
