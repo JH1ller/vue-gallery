@@ -1,0 +1,50 @@
+.view-title {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 2.5rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    background-color: white;
+    position: relative;
+
+    &__text {
+        @include typo--montserrat-title;
+        position: absolute;
+        left: 5rem;
+        transition: all 0.5s ease;
+
+        &.-move-left {
+            transform: translateX(-32px);
+        }
+    }
+
+    &__logo {
+        width: 128px;
+        height: auto;
+
+        & .icon-path {
+            fill: $color-text-primary;
+        }
+    }
+
+    &__backbtn {
+
+        &-wrapper {
+            position: absolute;
+            left: 1.5rem;
+        }
+
+        width: 32px;
+        height: 32px;
+        cursor: pointer;
+        transition: transform 0.5s ease;
+
+        &:hover {
+            transform: translateX(-5px);
+        }
+
+        & path {
+            fill: $color-text-primary;
+        }
+    }
+}
