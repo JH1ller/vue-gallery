@@ -1,13 +1,16 @@
 <template>
-  <div class="component">
-    <div class="gallery">
-      <transition name="fade">
-        <gallery-grid :items="currentFolder.children"></gallery-grid>
-      </transition>
-      <transition name="fade">
-        <lightbox :image="currentLightboxImage" v-if="showLightbox"></lightbox>
-      </transition>
-    </div>
+  <div class="gallery">
+    <transition name="fade">
+      <gallery-grid :key="currentFolder.children" :items="currentFolder.children"></gallery-grid>
+    </transition>
+    <transition name="fade">
+      <lightbox
+        @go-prev="goPrev"
+        @go-next="goNext"
+        :image="currentLightboxImage"
+        v-if="showLightbox"
+      ></lightbox>
+    </transition>
   </div>
 </template>
 

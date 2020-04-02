@@ -3,6 +3,7 @@
     <router-link
       :to="{ name: 'folder-detail', params: { folders: getFolderString() }}"
       class="gallery-folder__wrapper"
+      :class="{ '-nothumb': !hasThumb }"
     >
       <img :src="getThumb()" class="gallery-folder__img" />
       <div class="gallery-folder__label">{{folder.name}}</div>

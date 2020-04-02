@@ -1,29 +1,67 @@
 .view-title {
+    margin-top: 3rem;
+    width: 80%;
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    padding: 2.5rem;
+    padding: 2.4rem 1.5rem;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     background-color: white;
     position: relative;
 
-    &__text {
+    &__label {
+
         @include typo--montserrat-title;
+        color: $color-text-primary;
+        transition: all 0.3s ease;
+
+
+        &:before {
+            content: '/';
+            margin: 0.5rem;
+        }
+
+
+
+        &-wrapper {
+            left: 5rem;
+            display: inline;
+            cursor: pointer;
+
+            &:not(:last-of-type) {
+                &:hover {
+                    .view-title__label {
+                        text-decoration: underline;
+                    }
+                }
+            }
+
+            &:last-of-type {
+                cursor: default;
+            }
+
+            &:first-of-type {
+                .view-title__label:before {
+                    content: '';
+                    margin: 0;
+                }
+            }
+
+
+        }
+
+
+
+
+    }
+
+    &__folders {
         position: absolute;
-        left: 5rem;
+        left: 70px;
         transition: all 0.5s ease;
 
         &.-move-left {
             transform: translateX(-32px);
-        }
-    }
-
-    &__logo {
-        width: 128px;
-        height: auto;
-
-        & .icon-path {
-            fill: $color-text-primary;
         }
     }
 
@@ -32,16 +70,16 @@
         &-wrapper {
             position: absolute;
             left: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.5s ease;
+
+            &:hover {
+                transform: translateX(-5px);
+            }
         }
 
         width: 32px;
         height: 32px;
-        cursor: pointer;
-        transition: transform 0.5s ease;
-
-        &:hover {
-            transform: translateX(-5px);
-        }
 
         & path {
             fill: $color-text-primary;

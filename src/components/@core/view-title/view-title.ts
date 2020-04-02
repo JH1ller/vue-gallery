@@ -14,32 +14,55 @@ Vue.component('font-awesome-icon', FontAwesomeIcon);
 	}
 })
 export default class ViewTitle extends Vue {
-	private title: string = 'Übersicht';
+	private folderList: string[] = [];
 	private showBackBtn: boolean = false;
 
 	private mounted() {
-		if (this.$route.name === 'folder-detail') {
-			const folderName = this.$route.params.folders.split('+').pop();
-			if (folderName) {
-				this.title = folderName;
-			}
+		if (this.$route.name === 'folder-detail' || this.$route.name === 'image-detail') {
+			this.folderList = this.$route.params.folders.split('+');
 			this.showBackBtn = true;
 		} else {
-			this.title = 'Übersicht';
+			this.folderList = [ 'Übersicht' ];
 			this.showBackBtn = false;
+		}
+	}
+
+	private getPrevRoute() {
+		if (this.folderList.length > 1) {
+			return '/gallery/' + this.$route.params.folders.slice(0, this.$route.params.folders.lastIndexOf('+'));
+		} else {
+			return '/gallery/';
+		}
+	}
+
+	private showLink(index: number) {
+		return index + 1 !== this.folderList.length;
+	}
+
+	private getRoute(index: number) {
+		if (this.folderList.length > 1) {
+			const folderRoute = this.folderList.slice(0, index + 1);
+			let routeString = '/gallery/';
+			folderRoute.forEach((folder, index) => {
+				if (index > 0) {
+					routeString = routeString + '+' + folder;
+				} else {
+					routeString = routeString + folder;
+				}
+			});
+			return routeString;
+		} else {
+			return this.$route.path;
 		}
 	}
 
 	@Watch('$route')
 	onRouteChanged(to: any, from: any) {
-		if (to.name === 'folder-detail') {
-			const folderName = this.$route.params.folders.split('+').pop();
-			if (folderName) {
-				this.title = folderName;
-			}
+		if (to.name === 'folder-detail' || this.$route.name === 'image-detail') {
+			this.folderList = to.params.folders.split('+');
 			this.showBackBtn = true;
 		} else if (to.name === 'gallery') {
-			this.title = 'Übersicht';
+			this.folderList = [ 'Übersicht' ];
 			this.showBackBtn = false;
 		}
 	}

@@ -17,10 +17,9 @@
   height: 100%;
   overflow-x: hidden;
   background: $color-bg-primary;
-}
 
-.component {
-  width: 100%;
+  img {
+    user-select: none;
+  }
 }
-
 </style>

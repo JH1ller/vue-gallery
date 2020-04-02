@@ -1,4 +1,5 @@
 .lightbox {
+    --btn-offset: 20px;
     position: fixed;
     top: 0;
     left: 0;
@@ -13,5 +14,49 @@
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
         max-width: 80vw;
         max-height: 80vh;
+        user-select: none;
+        position: absolute;
+    }
+
+    &__btn {
+
+
+        &-prev,
+        &-next {
+            position: absolute;
+            cursor: pointer;
+            transition: all 0.5s ease;
+            filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, .5));
+            padding: 15px;
+
+            & path {
+                fill: white;
+            }
+
+            & svg {
+                width: 32px;
+            }
+
+        }
+
+        &-prev {
+            left: var(--btn-offset);
+            top: 50%;
+            transform: translateY(-50%);
+
+            &:hover {
+                transform: translate(-6px, -50%);
+            }
+        }
+
+        &-next {
+            right: var(--btn-offset);
+            top: 50%;
+            transform: translateY(-50%);
+
+            &:hover {
+                transform: translate(6px, -50%);
+            }
+        }
     }
 }

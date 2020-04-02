@@ -8,6 +8,7 @@ const path = require('path-browserify');
 export default class GalleryFolder extends Vue {
 
     @Prop() folder!: Folder;
+    private hasThumb: boolean = false;
 
     private getThumb(): string {
         let thumbPath: string = require('@/assets/icons/folder-icon.svg');
@@ -16,7 +17,7 @@ export default class GalleryFolder extends Vue {
                 if(item.type === ItemType.FILE) {
                         const parsedFile = path.parse(item.path);
                         thumbPath = path.join('media', parsedFile.dir, '_thumbs', parsedFile.base);
-                        console.log(thumbPath);
+                        this.hasThumb = true;
                         return true;
                 }
             })
@@ -24,6 +25,15 @@ export default class GalleryFolder extends Vue {
         return thumbPath;
     }
 
+    private mounted() {
+        this.hasThumb = false;
+    }
+
+    @Watch('$route')
+    private onRouteChanged(from: any, to: any) {
+        this.hasThumb = false;
+    }
+    
     private getCount(): number {
         return this.folder.children.length;
     }

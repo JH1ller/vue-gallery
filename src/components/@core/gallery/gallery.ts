@@ -1,7 +1,7 @@
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import GalleryGrid from '@/components/@core/gallery-grid/gallery-grid.vue';
 import Lightbox from '@/components/@core/lightbox/lightbox.vue';
-import { Image, Folder } from '@/interfaces/index';
+import { Image, Folder, ItemType } from '@/interfaces/index';
 import * as DirDB from '@/assets/db.json';
 
 @Component({
@@ -25,6 +25,45 @@ export default class Gallery extends Vue {
 		this.showLightbox = false;
 	}
 
+	private goPrev(currentImage: Image) {
+		const currentIndex = this.currentFolder.children.findIndex((item) => item.path === currentImage.path);
+		let prevItem = this.currentFolder.children[currentIndex - 1];
+		if (prevItem) {
+			if (prevItem.type === ItemType.FILE) {
+				this.$router.replace({ name: 'image-detail', params: { image: prevItem.path } });
+			} else {
+				this.goPrev(prevItem as Image);
+			}
+		} else {
+			prevItem = this.currentFolder.children[this.currentFolder.children.length - 1];
+			if (prevItem.type === ItemType.FILE) {
+				this.$router.replace({ name: 'image-detail', params: { image: prevItem.path } });
+			} else {
+				this.goPrev(prevItem as Image);
+			}
+		}
+	}
+
+	private goNext(currentImage: Image) {
+		const currentIndex = this.currentFolder.children.findIndex((item) => item.path === currentImage.path);
+		let nextItem = this.currentFolder.children[currentIndex + 1];
+		if (nextItem) {
+			if (nextItem.type === ItemType.FILE) {
+				this.$router.replace({ name: 'image-detail', params: { image: nextItem.path } });
+			} else {
+				this.goNext(nextItem as Image);
+			}
+		} else {
+			nextItem = this.currentFolder.children[0];
+			if (nextItem.type === ItemType.FILE) {
+				this.$router.replace({ name: 'image-detail', params: { image: nextItem.path } });
+			} else {
+				this.goNext(nextItem as Image);
+			}
+		}
+	}
+
+	// TODO: refactor
 	private mounted() {
 		if (this.$route.name === 'folder-detail') {
 			let targetFolder: Folder = this.dirTree.default;
@@ -41,7 +80,6 @@ export default class Gallery extends Vue {
 			});
 			this.openFolder(targetFolder);
 			const image = this.currentFolder.children.find((item) => item.path === this.$route.params.image) as Image;
-			console.log(this.currentFolder);
 			if (image) this.openImage(image);
 		} else {
 			this.showLightbox = false;

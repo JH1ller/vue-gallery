@@ -22,7 +22,7 @@
         width: 100%;
         height: 100%;
         transition: all .4s ease;
-
+        user-select: none;
 
         &:hover {
             transform: scale3d(1.05, 1.05, 1.05);

@@ -11,6 +11,10 @@
         align-items: center;
         background: black;
 
+        &.-nothumb {
+            background: #1f2933;
+        }
+
         &:hover {
             .gallery-folder__img {
                 transform: scale3d(1.05, 1.05, 1.05);
@@ -51,7 +55,7 @@
         position: absolute;
         color: white;
         text-align: center;
-        font-size: 1.5em;
+        font-size: 1.2em;
         pointer-events: none;
         text-shadow: 0 0 7px rgba(0, 0, 0, 0.7);
         max-width: 80%;
