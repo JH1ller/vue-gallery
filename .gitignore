@@ -22,3 +22,5 @@ yarn-error.log*
 *.sw?
 
 public/media
+
+src/assets/db.json

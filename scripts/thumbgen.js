@@ -36,38 +36,69 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-var path = require("path");
-var dirTree = require("directory-tree");
 var fs = require("fs");
 var util = require("util");
+var path = require("path");
+var dirTree = require("directory-tree");
+var index_1 = require("../src/interfaces/index");
+var _a = require('@zujo/thumbnail-generator'), ScaleThumb = _a.ScaleThumb, generateThumb = _a.generateThumb, Resize = _a.Resize, cropthumbCoor = _a.cropthumbCoor, generateThumbwithsize = _a.generateThumbwithsize;
+var exists = util.promisify(fs.exists);
+var readdir = util.promisify(fs.readdir);
+var lstat = util.promisify(fs.lstat);
+var mkdir = util.promisify(fs.mkdir);
 var writeFile = util.promisify(fs.writeFile);
-var DirIndexer = /** @class */ (function () {
-    function DirIndexer() {
+var ThumbGen = /** @class */ (function () {
+    function ThumbGen() {
         this.inputDirectory = '../public/media/';
+        this.extensions = ['.jpg', '.png', '.jpeg'];
+        this.quality = '100';
     }
-    DirIndexer.prototype.run = function () {
+    ThumbGen.prototype.run = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var tree, json;
+            var tree;
             return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        tree = dirTree(this.inputDirectory, {
-                            extensions: /\.(jpg|jpeg|png)$/,
-                            normalizePath: true,
-                            exclude: /_thumbs/g
-                        });
-                        json = JSON.stringify(tree);
-                        json = json.replace(/..\/public\/media\//g, '');
-                        return [4 /*yield*/, writeFile(path.join('../src/assets/', 'db.json'), json)];
-                    case 1:
-                        _a.sent();
-                        return [2 /*return*/];
-                }
+                tree = dirTree(this.inputDirectory, {
+                    extensions: /\.(jpg|jpeg|png)$/,
+                    normalizePath: true,
+                    exclude: /_thumbs/g
+                });
+                this.createThumb(tree);
+                return [2 /*return*/];
             });
         });
     };
-    return DirIndexer;
+    ThumbGen.prototype.createThumb = function (dir) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                dir.children.forEach(function (item) {
+                    if (item.type === index_1.ItemType.FILE) {
+                        try {
+                            var inputPath = item.path;
+                            var parsedFile = path.parse(inputPath);
+                            var outputDir = path.join(parsedFile.dir, '_thumbs');
+                            if (!fs.existsSync(outputDir))
+                                fs.mkdirSync(outputDir);
+                            var outputPath = path.join(outputDir, parsedFile.name);
+                            if (!fs.existsSync(outputPath + parsedFile.ext)) {
+                                generateThumbwithsize(inputPath, outputPath, 480, parsedFile.ext);
+                                console.log('generated: ', outputPath + parsedFile.ext);
+                            }
+                        }
+                        catch (error) {
+                            console.log(error);
+                        }
+                    }
+                    else {
+                        _this.createThumb(item);
+                    }
+                });
+                return [2 /*return*/];
+            });
+        });
+    };
+    return ThumbGen;
 }());
-exports["default"] = DirIndexer;
-var dirIndexer = new DirIndexer();
-dirIndexer.run();
+exports["default"] = ThumbGen;
+var generator = new ThumbGen();
+generator.run();

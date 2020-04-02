@@ -3,5 +3,10 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 2rem 5rem;
+    margin: 2rem 2rem;
+
+    @include viewport_mq5 {
+        margin: 2rem 15rem;
+    }
+
 }

@@ -1,11 +1,20 @@
 export interface Image {
-    pathResolved: string,
-    pathOriginal: string,
-    folder: string
+	path: string;
+	name: string;
+	size: number;
+	extension: string;
+	type: ItemType;
 }
 
 export interface Folder {
-    name: string,
-    count: number,
-    thumb: string
+	path: string;
+	name: string;
+	children: Array<Folder | Image>;
+	size: number;
+	type: ItemType;
+}
+
+export enum ItemType {
+	DIRECTORY = 'directory',
+	FILE = 'file'
 }

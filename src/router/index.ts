@@ -16,12 +16,12 @@ const routes = [
 		component: GalleryView
 	},
 	{
-		path: '/gallery/:foldername',
+		path: '/gallery/:folders',
 		name: 'folder-detail',
 		component: GalleryView
 	},
 	{
-		path: '/gallery/:foldername/:image',
+		path: '/gallery/:folders/:image',
 		name: 'image-detail',
 		component: GalleryView
 	}
