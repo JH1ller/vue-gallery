@@ -17,6 +17,7 @@
   height: 100%;
   overflow-x: hidden;
   background: $color-bg-primary;
+  overflow-y: scroll;
 
   img {
     user-select: none;
