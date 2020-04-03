@@ -52,7 +52,7 @@ var DirIndexer = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         tree = dirTree(this.inputDirectory, {
-                            extensions: /\.(jpg|jpeg|png)$/,
+                            extensions: /\.(jpg|jpeg|png|webm|webp|mp4|ogg)$/,
                             normalizePath: true,
                             exclude: /_thumbs/g
                         });

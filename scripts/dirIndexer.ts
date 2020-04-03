@@ -10,7 +10,7 @@ export default class DirIndexer {
 
 	public async run() {
 		const tree = dirTree(this.inputDirectory, {
-			extensions: /\.(jpg|jpeg|png)$/,
+			extensions: /\.(jpg|jpeg|png|webm|webp|mp4|ogg)$/,
 			normalizePath: true,
 			exclude: /_thumbs/g
 		});

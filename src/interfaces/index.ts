@@ -1,17 +1,21 @@
-export interface Image {
+export interface Image extends File {}
+
+export interface Video extends File {}
+
+export interface File {
 	path: string;
 	name: string;
 	size: number;
 	extension: string;
-	type: ItemType;
+	type: ItemType.FILE;
 }
 
 export interface Folder {
 	path: string;
 	name: string;
-	children: Array<Folder | Image>;
+	children: Array<Folder | File>;
 	size: number;
-	type: ItemType;
+	type: ItemType.DIRECTORY;
 }
 
 export enum ItemType {

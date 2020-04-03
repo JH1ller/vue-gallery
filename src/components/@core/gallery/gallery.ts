@@ -1,7 +1,7 @@
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import GalleryGrid from '@/components/@core/gallery-grid/gallery-grid.vue';
 import Lightbox from '@/components/@core/lightbox/lightbox.vue';
-import { Image, Folder, ItemType } from '@/interfaces/index';
+import { Image, Folder, ItemType, Video, File } from '@/interfaces/index';
 import * as DirDB from '@/assets/db.json';
 
 @Component({
@@ -32,14 +32,14 @@ export default class Gallery extends Vue {
 			if (prevItem.type === ItemType.FILE) {
 				this.$router.replace({ name: 'image-detail', params: { image: prevItem.path } });
 			} else {
-				this.goPrev(prevItem as Image);
+				this.goPrev((prevItem as unknown) as Image);
 			}
 		} else {
 			prevItem = this.currentFolder.children[this.currentFolder.children.length - 1];
 			if (prevItem.type === ItemType.FILE) {
 				this.$router.replace({ name: 'image-detail', params: { image: prevItem.path } });
 			} else {
-				this.goPrev(prevItem as Image);
+				this.goPrev((prevItem as unknown) as Image);
 			}
 		}
 	}
@@ -51,14 +51,14 @@ export default class Gallery extends Vue {
 			if (nextItem.type === ItemType.FILE) {
 				this.$router.replace({ name: 'image-detail', params: { image: nextItem.path } });
 			} else {
-				this.goNext(nextItem as Image);
+				this.goNext((nextItem as unknown) as Image);
 			}
 		} else {
 			nextItem = this.currentFolder.children[0];
 			if (nextItem.type === ItemType.FILE) {
 				this.$router.replace({ name: 'image-detail', params: { image: nextItem.path } });
 			} else {
-				this.goNext(nextItem as Image);
+				this.goNext((nextItem as unknown) as Image);
 			}
 		}
 	}
