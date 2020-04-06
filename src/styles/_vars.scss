@@ -9,6 +9,10 @@ $color-text-secondary: #ececec;
 $color-bg-primary: #EBECEF;
 $color-bg-secondary: #141418;
 
+$gradient-bg-logo: linear-gradient(to right, #c94b4b, #4b134f);
+$gradient-bg-app: linear-gradient(to top right, #e1eec3, #f05053);
+$gradient-bg-logo2: linear-gradient(to right, $color-text-primary, $color-text-primary);
+
 //$color-border-active: #88b3e7; //#ffb500;
 //$color-border: #ededed;
 

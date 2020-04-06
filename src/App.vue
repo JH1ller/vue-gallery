@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <toast></toast>
+    <navbar></navbar>
     <router-view class="router-view"></router-view>
   </div>
 </template>
@@ -16,7 +17,7 @@
   width: 100%;
   height: 100%;
   overflow-x: hidden;
-  background: $color-bg-primary;
+  background: $gradient-bg-app;
   overflow-y: scroll;
 
   img {

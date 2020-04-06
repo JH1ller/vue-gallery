@@ -53,6 +53,8 @@ export default class Lightbox extends Vue {
                this.goPrev(this.file);
            } else if(e.keyCode === 32) {
                this.toggleDiashow();
+           } else if(e.keyCode === 27) {
+            this.$router.push({ name: 'folder-detail', params: { foldername: this.$route.params.foldername }});
            }
         });
     }
