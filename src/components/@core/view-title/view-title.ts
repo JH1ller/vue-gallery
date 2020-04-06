@@ -18,7 +18,7 @@ export default class ViewTitle extends Vue {
 	private showBackBtn: boolean = false;
 
 	private mounted() {
-		if (this.$route.name === 'folder-detail' || this.$route.name === 'image-detail') {
+		if (this.$route.name === 'folder-detail' || this.$route.name === 'file-detail') {
 			this.folderList = this.$route.params.folders.split('+');
 			this.showBackBtn = true;
 		} else {
@@ -58,7 +58,7 @@ export default class ViewTitle extends Vue {
 
 	@Watch('$route')
 	onRouteChanged(to: any, from: any) {
-		if (to.name === 'folder-detail' || this.$route.name === 'image-detail') {
+		if (to.name === 'folder-detail' || this.$route.name === 'file-detail') {
 			this.folderList = to.params.folders.split('+');
 			this.showBackBtn = true;
 		} else if (to.name === 'gallery') {

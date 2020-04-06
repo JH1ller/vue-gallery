@@ -17,6 +17,4 @@ export default class GalleryImage extends Vue {
         return Math.random() >= 0.9;
     }
 
-    private imageLoaded() {
-    }
 }

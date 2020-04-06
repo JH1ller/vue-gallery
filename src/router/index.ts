@@ -21,8 +21,8 @@ const routes = [
 		component: GalleryView
 	},
 	{
-		path: '/gallery/:folders/:image',
-		name: 'image-detail',
+		path: '/gallery/:folders/:file',
+		name: 'file-detail',
 		component: GalleryView
 	}
 ];

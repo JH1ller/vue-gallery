@@ -1,15 +1,10 @@
 <template>
   <div class="gallery">
     <transition name="fade">
-      <gallery-grid :key="currentFolder.children" :items="currentFolder.children"></gallery-grid>
+      <gallery-grid :key="currentFolder.children.toString()" :items="currentFolder.children"></gallery-grid>
     </transition>
     <transition name="fade">
-      <lightbox
-        @go-prev="goPrev"
-        @go-next="goNext"
-        :image="currentLightboxImage"
-        v-if="showLightbox"
-      ></lightbox>
+      <lightbox @go-prev="goPrev" @go-next="goNext" :file="currentLightboxFile" v-if="showLightbox"></lightbox>
     </transition>
   </div>
 </template>

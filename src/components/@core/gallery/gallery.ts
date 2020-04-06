@@ -12,12 +12,12 @@ import * as DirDB from '@/assets/db.json';
 })
 export default class Gallery extends Vue {
 	private showLightbox: boolean = false;
-	private currentLightboxImage: Image | null = null;
+	private currentLightboxFile: File | null = null;
 	private dirTree: any = DirDB;
 	private currentFolder: Folder = this.dirTree.default;
 
-	private openImage(image: Image) {
-		this.currentLightboxImage = image;
+	private openFile(file: File) {
+		this.currentLightboxFile = file;
 		this.showLightbox = true;
 	}
 	private openFolder(folder: Folder) {
@@ -25,40 +25,40 @@ export default class Gallery extends Vue {
 		this.showLightbox = false;
 	}
 
-	private goPrev(currentImage: Image) {
-		const currentIndex = this.currentFolder.children.findIndex((item) => item.path === currentImage.path);
+	private goPrev(currentFile: File) {
+		const currentIndex = this.currentFolder.children.findIndex((item) => item.name === currentFile.name);
 		let prevItem = this.currentFolder.children[currentIndex - 1];
 		if (prevItem) {
 			if (prevItem.type === ItemType.FILE) {
-				this.$router.replace({ name: 'image-detail', params: { image: prevItem.path } });
+				this.$router.replace({ name: 'file-detail', params: { file: prevItem.name } });
 			} else {
-				this.goPrev((prevItem as unknown) as Image);
+				this.goPrev((prevItem as unknown) as File);
 			}
 		} else {
 			prevItem = this.currentFolder.children[this.currentFolder.children.length - 1];
 			if (prevItem.type === ItemType.FILE) {
-				this.$router.replace({ name: 'image-detail', params: { image: prevItem.path } });
+				this.$router.replace({ name: 'file-detail', params: { file: prevItem.name } });
 			} else {
-				this.goPrev((prevItem as unknown) as Image);
+				this.goPrev((prevItem as unknown) as File);
 			}
 		}
 	}
 
-	private goNext(currentImage: Image) {
-		const currentIndex = this.currentFolder.children.findIndex((item) => item.path === currentImage.path);
+	private goNext(currentFile: File) {
+		const currentIndex = this.currentFolder.children.findIndex((item) => item.name === currentFile.name);
 		let nextItem = this.currentFolder.children[currentIndex + 1];
 		if (nextItem) {
 			if (nextItem.type === ItemType.FILE) {
-				this.$router.replace({ name: 'image-detail', params: { image: nextItem.path } });
+				this.$router.replace({ name: 'file-detail', params: { file: nextItem.name } });
 			} else {
-				this.goNext((nextItem as unknown) as Image);
+				this.goNext((nextItem as unknown) as File);
 			}
 		} else {
 			nextItem = this.currentFolder.children[0];
 			if (nextItem.type === ItemType.FILE) {
-				this.$router.replace({ name: 'image-detail', params: { image: nextItem.path } });
+				this.$router.replace({ name: 'file-detail', params: { file: nextItem.name } });
 			} else {
-				this.goNext((nextItem as unknown) as Image);
+				this.goNext((nextItem as unknown) as File);
 			}
 		}
 	}
@@ -72,15 +72,15 @@ export default class Gallery extends Vue {
 				targetFolder = targetFolder.children.find((item) => item.name === folder) as Folder;
 			});
 			this.openFolder(targetFolder);
-		} else if (this.$route.name === 'image-detail') {
+		} else if (this.$route.name === 'file-detail') {
 			let targetFolder: Folder = this.dirTree.default;
 			const folders = this.$route.params.folders.split('+');
 			folders.forEach((folder) => {
 				targetFolder = targetFolder.children.find((item) => item.name === folder) as Folder;
 			});
 			this.openFolder(targetFolder);
-			const image = this.currentFolder.children.find((item) => item.path === this.$route.params.image) as Image;
-			if (image) this.openImage(image);
+			const file = this.currentFolder.children.find((item) => item.name === this.$route.params.file) as File;
+			if (file) this.openFile(file);
 		} else {
 			this.showLightbox = false;
 			this.currentFolder = this.dirTree.default;
@@ -96,9 +96,9 @@ export default class Gallery extends Vue {
 				targetFolder = targetFolder.children.find((item) => item.name === folder) as Folder;
 			});
 			this.openFolder(targetFolder);
-		} else if (to.name === 'image-detail') {
-			const image = this.currentFolder.children.find((item) => item.path === to.params.image) as Image;
-			if (image) this.openImage(image);
+		} else if (to.name === 'file-detail') {
+			const file = this.currentFolder.children.find((item) => item.name === to.params.file) as File;
+			if (file) this.openFile(file);
 		} else {
 			this.showLightbox = false;
 			this.currentFolder = this.dirTree.default;

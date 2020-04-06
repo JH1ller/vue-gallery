@@ -3,18 +3,19 @@
     class="gallery-video"
     :class="{ 'card-tall': randomCardSize(), 'card-wide': randomCardSize() }"
   >
-    <!--  <router-link :to="{ name: 'image-detail', params: { image: image.path }}"> -->
-    <video
-      ref="player"
-      :src="getPath()"
-      class="gallery-video__video"
-      @mouseover="onMouseOver"
-      @mouseleave="onMouseLeave"
-      :type="getType()"
-      loop
-      muted
-    />
-    <!-- </router-link> -->
+    <router-link :to="{ name: 'file-detail', params: { file: video.name }}">
+      <video
+        ref="player"
+        :src="getPath()"
+        class="gallery-video__video"
+        @mouseover="onMouseOver"
+        @mouseleave="onMouseLeave"
+        :type="getType()"
+        loop
+        muted
+      />
+      <font-awesome-icon icon="play" class="gallery-video__btn-play" />
+    </router-link>
   </div>
 </template>
 
