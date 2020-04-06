@@ -8,6 +8,7 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     background-color: white;
     position: relative;
+    z-index: 2;
 
     &__label {
 
@@ -49,18 +50,17 @@
                 }
             }
 
-
         }
-
-
-
-
     }
 
     &__folders {
         position: absolute;
         left: 70px;
         transition: all 0.5s ease;
+        width: calc(100% - 93px);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
 
         &.-move-left {
             transform: translateX(-40px);
