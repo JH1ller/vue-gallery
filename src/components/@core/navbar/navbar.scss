@@ -24,7 +24,7 @@
     &__logo {
         display: inline-block;
         cursor: pointer;
-        transition: all 0.5s ease;
+        transition: color 0.2s ease, transform 0.3s ease;
 
         &-image {
             opacity: 0.5;
@@ -73,14 +73,16 @@
         position: absolute;
         right: 24px;
         top: 18px;
-        transition: transform 0.5s ease;
+        transition: transform 0.3s ease;
+        transition-delay: 0.3s;
 
         @include viewport_mq3 {
             display: none;
         }
 
         &.-open {
-            transform: rotate(90deg);
+            transform: rotate(-90deg);
+            transition-delay: 0s;
         }
     }
 
@@ -95,11 +97,12 @@
         justify-content: space-between;
         align-items: center;
         transition: height 0.5s ease, padding-top 0.5s ease, opacity 0.5s ease;
-        transition-delay: 0.4s, 0.4s, 0s;
+        transition-delay: 0.2s, 0.2s, 0s;
+
 
         &.-open {
             transition: height 0.5s ease, padding-top 0.5s ease, opacity 0.5s ease;
-            transition-delay: 0s, 0s, 0.4s;
+            transition-delay: 0s, 0s, 0.2s;
             padding-top: 2rem;
             height: 130px;
             opacity: 1;
@@ -112,12 +115,19 @@
             align-items: center;
             width: 350px;
             padding-top: 0;
+            opacity: 1;
         }
 
         &-link {
             @include typo--fira-title;
             font-size: 1.2em;
             font-weight: 500;
+            cursor: pointer;
+            transition: color 0.2s ease;
+
+            &:hover {
+                color: #5e9dab;
+            }
         }
     }
 }
