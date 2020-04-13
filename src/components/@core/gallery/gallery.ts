@@ -1,20 +1,21 @@
 import { Component, Vue, Watch } from 'vue-property-decorator';
+import { mapState } from 'vuex';
 import GalleryGrid from '@/components/@core/gallery-grid/gallery-grid.vue';
 import Lightbox from '@/components/@core/lightbox/lightbox.vue';
 import { Image, Folder, ItemType, Video, File } from '@/interfaces/index';
-import * as DirDB from '@/assets/db.json';
 
 @Component({
 	components: {
 		GalleryGrid,
 		Lightbox
-	}
+	},
+	computed: mapState({ dirTree: (state: any) => state.db })
 })
 export default class Gallery extends Vue {
 	private showLightbox: boolean = false;
 	private currentLightboxFile: File | null = null;
-	private dirTree: any = DirDB;
-	private currentFolder: Folder = this.dirTree.default;
+	private dirTree: any;
+	private currentFolder: Folder = {} as Folder;
 
 	private openFile(file: File) {
 		this.currentLightboxFile = file;
@@ -23,6 +24,10 @@ export default class Gallery extends Vue {
 	private openFolder(folder: Folder) {
 		this.currentFolder = folder;
 		this.showLightbox = false;
+	}
+
+	private created() {
+		this.currentFolder = { ...this.dirTree };
 	}
 
 	private goPrev(currentFile: File) {
@@ -66,14 +71,14 @@ export default class Gallery extends Vue {
 	// TODO: refactor
 	private mounted() {
 		if (this.$route.name === 'folder-detail') {
-			let targetFolder: Folder = this.dirTree.default;
+			let targetFolder: Folder = this.dirTree;
 			const folders = this.$route.params.folders.split('+');
 			folders.forEach((folder) => {
 				targetFolder = targetFolder.children.find((item) => item.name === folder) as Folder;
 			});
 			this.openFolder(targetFolder);
 		} else if (this.$route.name === 'file-detail') {
-			let targetFolder: Folder = this.dirTree.default;
+			let targetFolder: Folder = this.dirTree;
 			const folders = this.$route.params.folders.split('+');
 			folders.forEach((folder) => {
 				targetFolder = targetFolder.children.find((item) => item.name === folder) as Folder;
@@ -83,14 +88,14 @@ export default class Gallery extends Vue {
 			if (file) this.openFile(file);
 		} else {
 			this.showLightbox = false;
-			this.currentFolder = this.dirTree.default;
+			this.currentFolder = this.dirTree;
 		}
 	}
 
 	@Watch('$route')
 	onRouteChanged(to: any, from: any) {
 		if (to.name === 'folder-detail') {
-			let targetFolder: Folder = this.dirTree.default;
+			let targetFolder: Folder = this.dirTree;
 			const folders = to.params.folders.split('+');
 			folders.forEach((folder: string) => {
 				targetFolder = targetFolder.children.find((item) => item.name === folder) as Folder;
@@ -101,7 +106,7 @@ export default class Gallery extends Vue {
 			if (file) this.openFile(file);
 		} else {
 			this.showLightbox = false;
-			this.currentFolder = this.dirTree.default;
+			this.currentFolder = this.dirTree;
 		}
 	}
 }

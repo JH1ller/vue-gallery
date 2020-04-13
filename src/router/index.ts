@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import GalleryView from '@/views/GalleryView/GalleryView.vue';
+import { dbResolver } from '@/resolver/index';
 
 Vue.use(VueRouter);
 
@@ -13,17 +14,20 @@ const routes = [
 	{
 		path: '/gallery',
 		name: 'gallery',
-		component: GalleryView
+		component: GalleryView,
+		beforeEnter: dbResolver
 	},
 	{
 		path: '/gallery/:folders',
 		name: 'folder-detail',
-		component: GalleryView
+		component: GalleryView,
+		beforeEnter: dbResolver
 	},
 	{
 		path: '/gallery/:folders/:file',
 		name: 'file-detail',
-		component: GalleryView
+		component: GalleryView,
+		beforeEnter: dbResolver
 	}
 ];
 
