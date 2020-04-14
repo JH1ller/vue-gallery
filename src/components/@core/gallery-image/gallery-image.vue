@@ -4,7 +4,7 @@
     :class="{ 'card-tall': randomCardSize(), 'card-wide': randomCardSize() }"
   >
     <router-link :to="{ name: 'file-detail', params: { file: image.name }}">
-      <img :src="getPath()" class="gallery-image__img" />
+      <img :src="getPath()" class="gallery-image__img" loading="lazy" />
     </router-link>
   </div>
 </template>

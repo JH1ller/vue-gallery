@@ -5,7 +5,7 @@
       class="gallery-folder__wrapper"
       :class="{ '-nothumb': !hasThumb }"
     >
-      <img :src="getThumb()" class="gallery-folder__img" />
+      <img :src="getThumb()" class="gallery-folder__img" loading="lazy" />
       <div class="gallery-folder__label">{{folder.name}}</div>
       <div class="gallery-folder__count">{{getCount()}}</div>
     </router-link>
