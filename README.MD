@@ -1,5 +1,8 @@
 ## Vue Gallery App
 
+### Disclaimer
+This project was created in the context of creating a family gallery website for my family. Some components may not be generic and are tailored to the specific use case. The project is in its current state not suitable to be reused by other people.
+
 ### Features
 - [x] Directories
 - [x] Back & Forth Directory Navigation
