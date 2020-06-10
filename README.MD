@@ -1,4 +1,11 @@
-## Hiller Family Website
+## Vue Gallery App
+
+### Features
+- [x] Directories
+- [x] Back & Forth Directory Navigation
+- [x] Lightbox
+- [x] Fullscreen mode
+- [x] Diashow mode
 
 ### Technologies
 - Vuejs
